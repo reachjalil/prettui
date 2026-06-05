@@ -65,6 +65,10 @@
       "types": "./dist/demo/index.d.ts",
       "import": "./dist/demo/index.js"
     },
+    "./framework": {
+      "types": "./dist/framework/index.d.ts",
+      "import": "./dist/framework/index.js"
+    },
     "./layout": {
       "types": "./dist/layout.d.ts",
       "import": "./dist/layout.js"

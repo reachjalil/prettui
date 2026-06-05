@@ -7,7 +7,9 @@
 
 preTUIy is a TypeScript library for rendering composable terminal UI frames:
 ANSI helpers, layout primitives, charts, panels, dashboard layouts, and a
-kitchen-sink demo that shows advanced TUI patterns.
+kitchen-sink demo that shows advanced TUI patterns. It also includes an
+opinionated framework layer for dynamic TUI apps with typed routes, expandable
+navigation, focus zones, menus, transitions, and exact-frame shell rendering.
 
 ```bash
 npx pretuiy demo
@@ -52,7 +54,43 @@ import { fitAnsi, visibleLength } from "pretuiy/ansi";
 import { bars, segmentedDonut } from "pretuiy/charts";
 import { renderPanel } from "pretuiy/components";
 import { renderTuiDemo } from "pretuiy/demo";
+import { createTuiAppState, reduceTuiAppEvent, renderTuiApp } from "pretuiy/framework";
 ```
+
+## Opinionated Framework
+
+Use `pretuiy/framework` when you want preTUIy to own the standard TUI app
+patterns: navigation layout, route history, focus movement, menu-driven route
+changes, transitions, responsive shell composition, and dynamic render context.
+
+```ts
+import { createTuiAppState, renderTuiApp, type TuiAppDefinition } from "pretuiy/framework";
+import { renderPanel } from "pretuiy/components";
+
+const app: TuiAppDefinition<{ queueDepth: number }> = {
+  title: "preTUIy",
+  subtitle: "Operations console",
+  initialRouteId: "overview",
+  context: { queueDepth: 12 },
+  navigation: [
+    { id: "primary", label: "Primary", items: [{ id: "overview", label: "Overview", routeId: "overview" }] },
+  ],
+  routes: [
+    {
+      id: "overview",
+      title: "Overview",
+      render: ({ width, height, context }) =>
+        renderPanel({ title: "Queue", children: [`Depth: ${context.queueDepth}`], width, height, color: false }),
+    },
+  ],
+};
+
+const state = createTuiAppState(app);
+process.stdout.write(renderTuiApp(app, state, { width: 120, height: 36, color: false }));
+```
+
+See [docs/FRAMEWORK.md](./docs/FRAMEWORK.md) for routing, composition, and
+interaction patterns.
 
 ## What It Includes
 
@@ -66,12 +104,15 @@ import { renderTuiDemo } from "pretuiy/demo";
   key/value groups.
 - Higher-level dashboard layouts and a kitchen sink that documents layout
   patterns and TUI implementation practices.
+- An optional framework layer for route-driven TUI apps with typed state,
+  expandable navigation, focus zones, menus, and transitions.
 
 ## Boundaries
 
-preTUIy renders strings. It does not own application state, terminal input,
-process lifecycle, persistence, telemetry, or network behavior. Apps pass data
-in, decide how frames are displayed, and wire their own runtime controls.
+preTUIy renders strings. The low-level primitives do not own application state.
+The optional framework reducer can own common TUI state such as routes, focus,
+menus, and transitions, while host apps still control terminal input, process
+lifecycle, persistence, telemetry, and network behavior.
 
 ## Development
 

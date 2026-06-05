@@ -1,7 +1,7 @@
 # pretuiy
 
 Composable terminal UI rendering primitives, panels, charts, dashboard layouts,
-and a runnable kitchen-sink demo.
+an opinionated app framework, and a runnable kitchen-sink demo.
 
 ```bash
 npm install pretuiy
@@ -22,6 +22,16 @@ const frame = renderPanel({
 });
 ```
 
+## Framework Usage
+
+```ts
+import { createTuiAppState, reduceTuiAppEvent, renderTuiApp } from "pretuiy/framework";
+
+const state = createTuiAppState(app);
+const next = reduceTuiAppEvent(app, state, { type: "key", key: "tab" });
+process.stdout.write(renderTuiApp(app, next, { width: 120, height: 36 }));
+```
+
 ## CLI Demo
 
 ```bash
@@ -37,8 +47,10 @@ pretuiy demo --snapshot --cols 178 --rows 48 --no-color
 - `pretuiy/charts`
 - `pretuiy/components`
 - `pretuiy/demo`
+- `pretuiy/framework`
 - `pretuiy/layout`
 - `pretuiy/layouts`
 
-preTUIy renders strings. It does not own application state, terminal input,
-process lifecycle, persistence, telemetry, or network behavior.
+preTUIy renders strings. The optional framework owns common route, focus, menu,
+and transition state. Host apps still own terminal input, process lifecycle,
+persistence, telemetry, and network behavior.

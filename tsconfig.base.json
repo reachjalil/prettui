@@ -21,6 +21,7 @@
       "pretuiy/charts": ["packages/pretuiy/src/charts.ts"],
       "pretuiy/components": ["packages/pretuiy/src/components/index.ts"],
       "pretuiy/demo": ["packages/pretuiy/src/demo/index.ts"],
+      "pretuiy/framework": ["packages/pretuiy/src/framework/index.ts"],
       "pretuiy/layout": ["packages/pretuiy/src/layout.ts"],
       "pretuiy/layouts": ["packages/pretuiy/src/layouts/index.ts"]
     }
