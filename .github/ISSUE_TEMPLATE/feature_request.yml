@@ -1,0 +1,34 @@
+name: Feature request
+description: Propose a new component, layout, chart, or CLI workflow.
+title: "feature: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What TUI use case should preTUIy handle?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the expected API, renderer behavior, or CLI surface.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Core rendering
+        - Components
+        - Layouts
+        - Demo
+        - CLI
+        - Docs
+        - Unsure
+    validations:
+      required: true
