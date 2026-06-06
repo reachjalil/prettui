@@ -54,7 +54,7 @@ jobs:
       - name: Prepare release notes
         run: pnpm --silent run release:notes "$GITHUB_REF_NAME" > .release-notes.md
 
-      - name: Publish npm package
+      - name: Publish npm packages
         run: pnpm run release:publish:npm
 
       - name: Create GitHub release
@@ -64,7 +64,7 @@ jobs:
           version="${GITHUB_REF_NAME#v}"
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             gh release edit "$GITHUB_REF_NAME" \
-              --title "preTUIy $version" \
+              --title "prettui $version" \
               --latest \
               --prerelease=false \
               --notes-file .release-notes.md
@@ -72,6 +72,6 @@ jobs:
             gh release create "$GITHUB_REF_NAME" \
               --verify-tag \
               --latest \
-              --title "preTUIy $version" \
+              --title "prettui $version" \
               --notes-file .release-notes.md
           fi

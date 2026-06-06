@@ -2,10 +2,11 @@ import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join, resolve } from "node:path";
+import { publicPackages } from "./list-packages.mjs";
 
 const root = process.cwd();
-const packageDirs = ["packages/pretuiy"];
 const dryRun = process.argv.includes("--dry-run");
+const provenance = !dryRun && !process.argv.includes("--no-provenance");
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, {
@@ -33,6 +34,9 @@ export function distTag(version) {
     throw new Error("Package version is required to select an npm dist-tag.");
   }
 
+  const prerelease = /-(?<tag>[0-9A-Za-z-]+)/u.exec(version);
+  if (prerelease?.groups?.tag) return prerelease.groups.tag;
+
   return "latest";
 }
 
@@ -46,7 +50,8 @@ function packageExists(name, version) {
 }
 
 function main() {
-  for (const dir of packageDirs) {
+  for (const entry of publicPackages()) {
+    const dir = entry.dir;
     const pkg = readPackage(dir);
     const tag = distTag(pkg.version);
 
@@ -55,16 +60,16 @@ function main() {
       continue;
     }
 
-    const args = ["publish", "--access", "public", "--tag", tag];
+    const args = ["publish", "--access", "public", "--tag", tag, "--no-git-checks"];
 
     if (dryRun) {
       args.push("--dry-run");
-    } else {
+    } else if (provenance) {
       args.push("--provenance");
     }
 
     console.log(`Publishing ${pkg.name}@${pkg.version} with npm tag ${tag}.`);
-    run("npm", args, { cwd: join(root, dir) });
+    run("pnpm", args, { cwd: join(root, dir) });
   }
 }
 

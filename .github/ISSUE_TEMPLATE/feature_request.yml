@@ -8,7 +8,7 @@ body:
     id: problem
     attributes:
       label: Problem
-      description: What TUI use case should preTUIy handle?
+      description: What TUI use case should prettui handle?
     validations:
       required: true
   - type: textarea

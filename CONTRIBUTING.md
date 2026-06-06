@@ -1,6 +1,6 @@
 # Contributing
 
-preTUIy is developed in the open from the `dev` branch. `main` is the protected
+prettui is developed in the open from the `dev` branch. `main` is the protected
 release branch and should only receive release-ready changes.
 
 ## Branch Flow
@@ -39,7 +39,7 @@ pnpm run quality
 Focused checks are useful while developing:
 
 ```bash
-pnpm --filter pretuiy check
-pnpm --filter pretuiy test
+pnpm --filter @prettui/cli check
+pnpm --filter @prettui/cli test
 pnpm run lint
 ```

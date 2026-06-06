@@ -26,15 +26,22 @@ before publishing.
 
 ## Release Flow
 
-All publishable metadata uses the same version:
+All publishable packages start in a fixed Changesets group, so a release can
+version the scoped package set together:
 
-- root package metadata;
-- `packages/pretuiy/package.json`.
+- `@prettui/core`
+- `@prettui/components`
+- `@prettui/dashboard`
+- `@prettui/framework`
+- `@prettui/layouts`
+- `@prettui/demo`
+- `@prettui/cli`
+- `@prettui/kit`
 
 Release steps:
 
 1. Prepare a release pull request from `dev` to `main`.
-2. Update versions together.
+2. Add a changeset with `pnpm changeset`, then run `pnpm version:packages`.
 3. Update `docs/RELEASE_NOTES.md` and complete `RELEASE-CHECKLIST.md`.
 4. Merge the release pull request to `main` after CI passes.
 5. Tag the exact `main` merge commit:
@@ -46,5 +53,5 @@ Release steps:
    git push origin v0.1.0
    ```
 
-6. The release workflow verifies the tag, runs quality, publishes npm through
-   trusted publishing, and creates the GitHub release.
+6. The release workflow verifies the tag, runs quality, publishes npm packages
+   with provenance, and creates the GitHub release.

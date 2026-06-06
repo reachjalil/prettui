@@ -1,9 +1,9 @@
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { publicPackages } from "./list-packages.mjs";
 
 const root = process.cwd();
-const packagePaths = ["package.json", "packages/pretuiy/package.json"];
 
 function readJson(path) {
   return JSON.parse(readFileSync(join(root, path), "utf8"));
@@ -27,6 +27,7 @@ if (!match) {
 }
 
 const version = match[1];
+const packagePaths = ["package.json", ...publicPackages().map((entry) => `${entry.dir}/package.json`)];
 const packages = packagePaths.map((path) => ({ path, json: readJson(path) }));
 
 for (const entry of packages) {

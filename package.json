@@ -1,20 +1,20 @@
 {
-  "name": "pretuiy-repo",
+  "name": "prettui",
   "private": true,
   "type": "module",
   "version": "0.1.0",
-  "description": "Open-source terminal UI rendering library and demo CLI.",
-  "homepage": "https://github.com/reachjalil/pretuiy",
+  "description": "Open-source TypeScript packages for composable terminal UI rendering.",
+  "homepage": "https://github.com/reachjalil/prettui",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reachjalil/pretuiy.git"
+    "url": "git+https://github.com/reachjalil/prettui.git"
   },
   "bugs": {
-    "url": "https://github.com/reachjalil/pretuiy/issues"
+    "url": "https://github.com/reachjalil/prettui/issues"
   },
   "license": "Apache-2.0",
   "keywords": [
-    "pretuiy",
+    "prettui",
     "terminal",
     "tui",
     "cli",
@@ -30,17 +30,21 @@
     "check": "pnpm -r --sort run check",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "test": "pnpm -r --sort run test",
-    "pack:dry-run": "pnpm -r --sort --filter \"./packages/*\" exec npm pack --dry-run",
+    "test": "vitest run",
+    "pack:dry-run": "pnpm -r --sort --filter \"./packages/*\" exec pnpm pack --dry-run",
     "publish:dry-run": "pnpm run pack:dry-run",
+    "changeset": "changeset",
+    "version:packages": "changeset version",
     "quality": "pnpm run lint && pnpm run check && pnpm run test && pnpm run build && pnpm run pack:dry-run",
     "release:notes": "node scripts/extract-release-notes.mjs",
     "release:publish:npm": "node scripts/publish-npm.mjs",
     "release:publish:npm:dry-run": "node scripts/publish-npm.mjs --dry-run",
+    "release:publish:npm:manual": "node scripts/publish-npm.mjs --no-provenance",
     "release:verify": "node scripts/verify-release-tag.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",
+    "@changesets/cli": "^2.31.0",
     "@types/node": "^25.5.0",
     "esbuild": "^0.28.0",
     "tsx": "4.22.3",

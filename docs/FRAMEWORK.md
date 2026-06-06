@@ -1,6 +1,6 @@
-# preTUIy framework
+# prettui framework
 
-`pretuiy/framework` is the opinionated layer for building dynamic terminal apps
+`@prettui/framework` is the opinionated layer for building dynamic terminal apps
 on top of the lower-level render primitives. It keeps the app model typed and
 plain: routes, navigation, menus, focus, transitions, and render context are all
 serializable data plus pure reducer/render functions.
@@ -23,15 +23,15 @@ Use this split for advanced TUIs:
 ## Minimal App
 
 ```ts
-import { renderPanel } from "pretuiy/components";
-import { createTuiAppState, renderTuiApp, type TuiAppDefinition } from "pretuiy/framework";
+import { renderPanel } from "@prettui/components";
+import { createTuiAppState, renderTuiApp, type TuiAppDefinition } from "@prettui/framework";
 
 type ConsoleContext = {
   queueDepth: number;
 };
 
 const app: TuiAppDefinition<ConsoleContext> = {
-  title: "preTUIy",
+  title: "prettui",
   subtitle: "Operations console",
   version: "0.1.0",
   initialRouteId: "overview",
@@ -72,7 +72,7 @@ Map your terminal runtime into framework events. Keep process and terminal
 control in your app, then pass normalized events into the reducer.
 
 ```ts
-import { createTuiAppState, reduceTuiAppEvent, renderTuiApp, type TuiAppEvent } from "pretuiy/framework";
+import { createTuiAppState, reduceTuiAppEvent, renderTuiApp, type TuiAppEvent } from "@prettui/framework";
 
 let state = createTuiAppState(app);
 
@@ -105,7 +105,7 @@ Default key events:
 
 ## Composition Patterns
 
-Use the framework for app concerns and low-level preTUIy exports for rendering:
+Use the framework for app concerns and low-level prettui exports for rendering:
 
 - Navigation layout: model route groups as `TuiNavigationSection[]`, keep labels
   stable, and use `defaultExpanded: false` for secondary areas.

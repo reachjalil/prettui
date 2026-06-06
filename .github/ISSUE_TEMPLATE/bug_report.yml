@@ -18,7 +18,7 @@ body:
       description: Include a minimal script, terminal size, or command.
       value: |
         ```bash
-        npx pretuiy demo --snapshot --no-color
+        npx @prettui/cli demo --snapshot --no-color
         ```
     validations:
       required: true

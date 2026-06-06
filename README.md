@@ -1,39 +1,46 @@
-# preTUIy
+# prettui
 
-[![CI](https://github.com/reachjalil/pretuiy/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/reachjalil/pretuiy/actions/workflows/ci.yml?query=branch%3Amain)
-[![npm pretuiy](https://img.shields.io/npm/v/pretuiy?label=pretuiy)](https://www.npmjs.com/package/pretuiy)
+[![CI](https://github.com/reachjalil/prettui/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/reachjalil/prettui/actions/workflows/ci.yml?query=branch%3Amain)
+[![npm @prettui/kit](https://img.shields.io/npm/v/%40prettui%2Fkit?label=%40prettui%2Fkit)](https://www.npmjs.com/package/@prettui/kit)
 [![Security](https://img.shields.io/badge/security-policy-111827)](./SECURITY.md)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green)](./LICENSE)
 
-preTUIy is a TypeScript library for rendering composable terminal UI frames:
+prettui is a TypeScript library for rendering composable terminal UI frames:
 ANSI helpers, layout primitives, charts, panels, dashboard layouts, and a
 kitchen-sink demo that shows advanced TUI patterns. It also includes an
 opinionated framework layer for dynamic TUI apps with typed routes, expandable
 navigation, focus zones, menus, transitions, and exact-frame shell rendering.
 
 ```bash
-npx pretuiy demo
-npx pretuiy demo --choice kitchen-sink
-npx pretuiy demo --snapshot --cols 178 --rows 48 --no-color
+npx @prettui/cli demo
+npx @prettui/cli demo --choice kitchen-sink
+npx @prettui/cli demo --snapshot --cols 178 --rows 48 --no-color
 ```
 
 ## Install
 
 ```bash
-npm install pretuiy
+npm install @prettui/kit
+```
+
+For the modular packages, install only what you use:
+
+```bash
+npm install @prettui/core @prettui/components @prettui/dashboard
+npm install @prettui/kit
 ```
 
 ## Usage
 
 ```ts
-import { renderTuiDashboard } from "pretuiy";
+import { renderTuiDashboard } from "@prettui/kit";
 
 const frame = renderTuiDashboard({
   width: 120,
   height: 36,
   color: true,
   brand: {
-    title: "preTUIy",
+    title: "prettui",
     subtitle: "Terminal operations dashboard",
   },
   metrics: [],
@@ -50,25 +57,38 @@ process.stdout.write(frame);
 Subpath exports are available for focused imports:
 
 ```ts
-import { fitAnsi, visibleLength } from "pretuiy/ansi";
-import { bars, segmentedDonut } from "pretuiy/charts";
-import { renderPanel } from "pretuiy/components";
-import { renderTuiDemo } from "pretuiy/demo";
-import { createTuiAppState, reduceTuiAppEvent, renderTuiApp } from "pretuiy/framework";
+import { fitAnsi, visibleLength } from "@prettui/core/ansi";
+import { bars, segmentedDonut } from "@prettui/core/charts";
+import { renderPanel } from "@prettui/components";
+import { renderTuiDemo } from "@prettui/demo";
+import { createTuiAppState, reduceTuiAppEvent, renderTuiApp } from "@prettui/framework";
 ```
+
+## Packages
+
+| Package | Use |
+| --- | --- |
+| `@prettui/core` | ANSI helpers, chart primitives, and exact-frame layout utilities. |
+| `@prettui/components` | Reusable panels, cards, tables, footers, and data widgets. |
+| `@prettui/dashboard` | Opinionated event/dashboard frame renderer. |
+| `@prettui/framework` | Typed routes, navigation, focus, menus, transitions, and shell rendering. |
+| `@prettui/layouts` | Higher-order analytics, stream, event, and workflow layouts. |
+| `@prettui/demo` | Demo renderers and kitchen-sink fixtures. |
+| `@prettui/cli` | `prettui` demo executable. |
+| `@prettui/kit` | Convenience package that re-exports the public toolkit. |
 
 ## Opinionated Framework
 
-Use `pretuiy/framework` when you want preTUIy to own the standard TUI app
+Use `@prettui/framework` when you want prettui to own the standard TUI app
 patterns: navigation layout, route history, focus movement, menu-driven route
 changes, transitions, responsive shell composition, and dynamic render context.
 
 ```ts
-import { createTuiAppState, renderTuiApp, type TuiAppDefinition } from "pretuiy/framework";
-import { renderPanel } from "pretuiy/components";
+import { createTuiAppState, renderTuiApp, type TuiAppDefinition } from "@prettui/framework";
+import { renderPanel } from "@prettui/components";
 
 const app: TuiAppDefinition<{ queueDepth: number }> = {
-  title: "preTUIy",
+  title: "prettui",
   subtitle: "Operations console",
   initialRouteId: "overview",
   context: { queueDepth: 12 },
@@ -109,7 +129,7 @@ interaction patterns.
 
 ## Boundaries
 
-preTUIy renders strings. The low-level primitives do not own application state.
+prettui renders strings. The low-level primitives do not own application state.
 The optional framework reducer can own common TUI state such as routes, focus,
 menus, and transitions, while host apps still control terminal input, process
 lifecycle, persistence, telemetry, and network behavior.
@@ -121,4 +141,5 @@ pnpm install
 pnpm run quality
 ```
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) and [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md).
+See [CONTRIBUTING.md](./CONTRIBUTING.md), [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md), and
+[docs/PUBLISHING.md](./docs/PUBLISHING.md).

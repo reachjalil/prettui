@@ -1,0 +1,74 @@
+{
+  "name": "@prettui/core",
+  "version": "0.1.0",
+  "description": "Core ANSI, chart, and layout primitives for prettui terminal interfaces.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "sideEffects": false,
+  "homepage": "https://github.com/reachjalil/prettui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reachjalil/prettui.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/reachjalil/prettui/issues"
+  },
+  "keywords": [
+    "prettui",
+    "terminal",
+    "tui",
+    "ansi",
+    "charts",
+    "layout",
+    "typescript"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md"
+  ],
+  "scripts": {
+    "build": "pnpm run clean && node ../../scripts/build-package.mjs && tsc -p tsconfig.build.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "pack:dry-run": "pnpm pack --dry-run",
+    "prepack": "pnpm run build"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./ansi": {
+      "types": "./dist/ansi.d.ts",
+      "import": "./dist/ansi.js"
+    },
+    "./charts": {
+      "types": "./dist/charts.d.ts",
+      "import": "./dist/charts.js"
+    },
+    "./layout": {
+      "types": "./dist/layout.d.ts",
+      "import": "./dist/layout.js"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "esbuild": "catalog:",
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

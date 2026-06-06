@@ -1,0 +1,69 @@
+{
+  "name": "@prettui/kit",
+  "version": "0.1.0",
+  "description": "Convenience package that re-exports the full prettui terminal UI toolkit.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "sideEffects": false,
+  "homepage": "https://github.com/reachjalil/prettui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reachjalil/prettui.git",
+    "directory": "packages/kit"
+  },
+  "bugs": {
+    "url": "https://github.com/reachjalil/prettui/issues"
+  },
+  "keywords": [
+    "prettui",
+    "terminal",
+    "tui",
+    "toolkit",
+    "components",
+    "typescript"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md"
+  ],
+  "scripts": {
+    "build": "pnpm run clean && node ../../scripts/build-package.mjs && tsc -p tsconfig.build.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "pack:dry-run": "pnpm pack --dry-run",
+    "prepack": "pnpm run build"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "dependencies": {
+    "@prettui/components": "workspace:*",
+    "@prettui/core": "workspace:*",
+    "@prettui/dashboard": "workspace:*",
+    "@prettui/demo": "workspace:*",
+    "@prettui/framework": "workspace:*",
+    "@prettui/layouts": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "esbuild": "catalog:",
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

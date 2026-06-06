@@ -16,14 +16,16 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
-      "pretuiy": ["packages/pretuiy/src/index.ts"],
-      "pretuiy/ansi": ["packages/pretuiy/src/ansi.ts"],
-      "pretuiy/charts": ["packages/pretuiy/src/charts.ts"],
-      "pretuiy/components": ["packages/pretuiy/src/components/index.ts"],
-      "pretuiy/demo": ["packages/pretuiy/src/demo/index.ts"],
-      "pretuiy/framework": ["packages/pretuiy/src/framework/index.ts"],
-      "pretuiy/layout": ["packages/pretuiy/src/layout.ts"],
-      "pretuiy/layouts": ["packages/pretuiy/src/layouts/index.ts"]
+      "@prettui/core": ["packages/core/src/index.ts"],
+      "@prettui/core/ansi": ["packages/core/src/ansi.ts"],
+      "@prettui/core/charts": ["packages/core/src/charts.ts"],
+      "@prettui/core/layout": ["packages/core/src/layout.ts"],
+      "@prettui/components": ["packages/components/src/index.ts"],
+      "@prettui/dashboard": ["packages/dashboard/src/index.ts"],
+      "@prettui/demo": ["packages/demo/src/index.ts"],
+      "@prettui/framework": ["packages/framework/src/index.ts"],
+      "@prettui/kit": ["packages/kit/src/index.ts"],
+      "@prettui/layouts": ["packages/layouts/src/index.ts"]
     }
   }
 }
