@@ -1,6 +1,6 @@
 {
   "name": "@prettui/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Core ANSI, chart, and layout primitives for prettui terminal interfaces.",
   "type": "module",
   "license": "Apache-2.0",
@@ -30,7 +30,8 @@
     "README.md",
     "LICENSE",
     "NOTICE",
-    "SECURITY.md"
+    "SECURITY.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "pnpm run clean && node ../../scripts/build-package.mjs && tsc -p tsconfig.build.json",

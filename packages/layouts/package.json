@@ -1,6 +1,6 @@
 {
   "name": "@prettui/layouts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Higher-order terminal UI layouts for analytics, event exploration, streams, and workflows.",
   "type": "module",
   "license": "Apache-2.0",
@@ -29,7 +29,8 @@
     "README.md",
     "LICENSE",
     "NOTICE",
-    "SECURITY.md"
+    "SECURITY.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "pnpm run clean && node ../../scripts/build-package.mjs && tsc -p tsconfig.build.json",

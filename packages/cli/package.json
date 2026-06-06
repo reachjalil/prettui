@@ -1,6 +1,6 @@
 {
   "name": "@prettui/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Command-line demo runner for prettui terminal UI packages.",
   "type": "module",
   "license": "Apache-2.0",
@@ -32,7 +32,8 @@
     "README.md",
     "LICENSE",
     "NOTICE",
-    "SECURITY.md"
+    "SECURITY.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "pnpm run clean && node ../../scripts/build-package.mjs && tsc -p tsconfig.build.json",

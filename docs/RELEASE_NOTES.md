@@ -1,5 +1,9 @@
 # Release notes
 
+## 0.1.1
+
+- Patch release to verify the trusted publishing release path for `@prettui/*`.
+
 ## 0.1.0
 
 - Initial public package plan for the `@prettui/*` workspace.
