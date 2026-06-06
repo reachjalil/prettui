@@ -1,6 +1,12 @@
 name: Release
 
 on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish, for example v0.1.1."
+        required: true
+        type: string
   push:
     tags:
       - "v*.*.*"
@@ -13,7 +19,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 concurrency:
-  group: release-${{ github.ref_name }}
+  group: release-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
@@ -27,6 +33,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -35,8 +42,10 @@ jobs:
 
       - name: Verify tag is on main
         run: |
+          tag="${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}"
           git fetch --no-tags origin main
-          tag_commit="$(git rev-list -n 1 "$GITHUB_REF_NAME")"
+          git fetch origin "refs/tags/$tag:refs/tags/$tag"
+          tag_commit="$(git rev-list -n 1 "$tag")"
           git merge-base --is-ancestor "$tag_commit" origin/main
 
       - name: Setup Node.js
@@ -49,13 +58,16 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Verify release tag
+        env:
+          GITHUB_REF_TYPE: tag
+          GITHUB_REF_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
         run: pnpm run release:verify
 
       - name: Run quality gate
         run: pnpm run quality
 
       - name: Prepare release notes
-        run: pnpm --silent run release:notes "$GITHUB_REF_NAME" > .release-notes.md
+        run: pnpm --silent run release:notes "${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}" > .release-notes.md
 
       - name: Publish npm packages
         run: pnpm run release:publish:npm
@@ -64,15 +76,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          version="${GITHUB_REF_NAME#v}"
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release edit "$GITHUB_REF_NAME" \
+          tag="${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}"
+          version="${tag#v}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" \
               --title "prettui $version" \
               --latest \
               --prerelease=false \
               --notes-file .release-notes.md
           else
-            gh release create "$GITHUB_REF_NAME" \
+            gh release create "$tag" \
               --verify-tag \
               --latest \
               --title "prettui $version" \
